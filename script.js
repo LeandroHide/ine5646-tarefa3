@@ -4,19 +4,17 @@ class Listicle {
         this.subtitulo = this.create("H2", subtitle, "item_subtitulo");
         this.sinopse = this.create("P", summary, "item_sinopse");
         this.figura = this.createImage("IMG", image, "item_imagem");
-        this.contador = this.create("P", "0", "contador_post");
-        this.contador2 = this.create("P", "0", "contador_post");
-        this.heart = this.createButton("INPUT", "image", "imagens/heart.png", "heart", this.contador);
-        this.broken = this.createButton("INPUT", "image", "imagens/broken.png", "heart", this.contador2);
+        this.contador = this.create("P", 0, "contador_post");
+        this.contador2 = this.create("P", 0, "contador_post");
+        this.heart = this.createButton("INPUT", "image", "imagens/heart.png", "heart");
+        this.broken = this.createButton("INPUT", "image", "imagens/broken.png", "heart");
 
+        this.botao1 = this.trocaFuncao(this.heart, this.broken, this.contador, this.contador2);
+        this.botao2 = this.trocaFuncao(this.broken, this.heart, this.contador2, this.contador);
 
         this.listaTopicos = this.juntaTudo(this.nome, this.subtitulo, this.sinopse,
                                             this.figura, this.heart, this.contador, this.broken, this.contador2);
 
-    }
-
-    get cont() {
-        return this.contador;
     }
 
 
@@ -34,21 +32,29 @@ class Listicle {
         return elemento;
     }
 
-    createButton(type, type2, content, classe, contador) {
+    createButton(type, type2, content, classe, contador, botao2) {
+
         const elemento = document.createElement(type);
         elemento.type = type2;
         elemento.src = content;
         elemento.className = classe;
-        elemento.addEventListener("click", this._changeColor);
-        elemento.addEventListener("click", function(){
-            if (contador.innerText == "0") {
-                contador.innerText = "1";
-            } else {
-                contador.innerText = "0";
-            }
-        });
 
         return elemento;
+    }
+
+    trocaFuncao(botao1, botao2, contador1, contador2) {
+        botao1.addEventListener("click", this._changeColor);
+        botao1.addEventListener("click", function(){
+            if (contador1.innerText === "0") {
+                contador1.innerText = 1;
+                if (contador2.innerText === "1") {
+                    contador2.innerText = 0;
+                    $(botao2).toggleClass("transparent");
+                }
+            } else {
+                contador1.innerText = 0;
+            }
+        });
     }
 
     juntaTudo(nome, subtitulo, sinopse, figura, heart, contador, broken, contador2) {
@@ -79,12 +85,10 @@ class Listicle {
 
     _changeColor(event) {
         const imagem = event.target;
-        $(imagem).toggleClass("transparent");
+        $(imagem).toggleClass("visivel");
     }
 
-    teste(event) {
-        ;
-    }
+
 }
 
 

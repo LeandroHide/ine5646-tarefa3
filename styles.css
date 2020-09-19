@@ -87,7 +87,7 @@ body {
     opacity: 0.5;
 }
 
-.heart.transparent {
+.heart.visivel {
     height: 30px;
     margin: 10px;
     opacity: 1;
