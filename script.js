@@ -9,8 +9,8 @@ class Listicle {
         this.heart = this.createButton("INPUT", "image", "imagens/heart.png", "heart");
         this.broken = this.createButton("INPUT", "image", "imagens/broken.png", "heart");
 
-        this.botao1 = this.trocaFuncao(this.heart, this.broken, this.contador, this.contador2);
-        this.botao2 = this.trocaFuncao(this.broken, this.heart, this.contador2, this.contador);
+        this.likeOrDislike(this.heart, this.broken, this.contador, this.contador2);
+        this.likeOrDislike(this.broken, this.heart, this.contador2, this.contador);
 
         this.listaTopicos = this.juntaTudo(this.nome, this.subtitulo, this.sinopse,
                                             this.figura, this.heart, this.contador, this.broken, this.contador2);
@@ -42,14 +42,14 @@ class Listicle {
         return elemento;
     }
 
-    trocaFuncao(botao1, botao2, contador1, contador2) {
+    likeOrDislike(botao1, botao2, contador1, contador2) {
         botao1.addEventListener("click", this._changeColor);
         botao1.addEventListener("click", function(){
             if (contador1.innerText === "0") {
                 contador1.innerText = 1;
                 if (contador2.innerText === "1") {
                     contador2.innerText = 0;
-                    $(botao2).toggleClass("transparent");
+                    $(botao2).toggleClass("visivel");
                 }
             } else {
                 contador1.innerText = 0;
